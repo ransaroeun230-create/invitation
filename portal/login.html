@@ -1,0 +1,26 @@
+<!DOCTYPE html><html lang="km"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sign in · ចូលគណនី</title>
+<link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="common.css">
+<style>.box{max-width:400px;margin:8vh auto 0}.tabs{display:flex;background:var(--card2);border:1px solid var(--line);border-radius:30px;padding:4px;margin:14px 0}.tab{flex:1;border:0;background:none;color:var(--mut);font:inherit;padding:8px;border-radius:30px;cursor:pointer}.tab.on{background:linear-gradient(90deg,var(--gold2),var(--gold));color:#2a1d05;font-weight:600}
+.oa{width:100%;display:flex;gap:10px;align-items:center;justify-content:center;background:#fff;color:#222;border:0;border-radius:12px;padding:11px;font:inherit;font-weight:600;cursor:pointer;margin-bottom:10px}.oa.gh{background:#24292f;color:#fff;border:1px solid #444}.oa svg{width:20px;height:20px}
+.or{text-align:center;color:var(--mut);font-size:12px;margin:12px 0}form>*{margin-bottom:10px}</style></head><body>
+<div class="wrap"><div class="box card"><h1>សំបុត្រអញ្ជើញ · Invitation</h1><p style="color:var(--mut);font-size:13px;margin-top:4px">ចូល ឬបង្កើតគណនី ដើម្បីគ្រប់គ្រងសំបុត្ររបស់អ្នក</p>
+<div class="tabs"><button class="tab on" data-m="in">ចូលគណនី</button><button class="tab" data-m="up">ចុះឈ្មោះ</button></div>
+<button class="oa" id="g"><svg viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9.1 3.6l6.8-6.8C35.8 2.4 30.3 0 24 0 14.6 0 6.5 5.4 2.6 13.2l7.9 6.1C12.4 13.5 17.7 9.5 24 9.5z"/><path fill="#4285F4" d="M46.5 24.5c0-1.6-.1-3.1-.4-4.5H24v9h12.7c-.6 3-2.3 5.4-4.8 7.1l7.5 5.8c4.4-4.1 7.1-10.1 7.1-17.4z"/><path fill="#FBBC05" d="M10.5 28.7a14.5 14.5 0 0 1 0-9.4l-7.9-6.1a24 24 0 0 0 0 21.6l7.9-6.1z"/><path fill="#34A853" d="M24 48c6.5 0 11.9-2.1 15.9-5.8l-7.5-5.8c-2.1 1.4-4.9 2.3-8.4 2.3-6.3 0-11.6-4-13.5-9.7l-7.9 6.1C6.5 42.6 14.6 48 24 48z"/></svg><span id="gt">បន្តជាមួយ Google</span></button>
+<button class="oa gh" id="h"><svg viewBox="0 0 24 24" fill="#fff"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg><span id="ht">បន្តជាមួយ GitHub</span></button>
+<div class="or">— ឬប្រើអ៊ីមែល —</div>
+<form id="f"><input id="nm" class="hide" placeholder="ឈ្មោះ" style="display:none"><input id="em" type="email" placeholder="អ៊ីមែល" required><input id="pw" type="password" placeholder="ពាក្យសម្ងាត់ (យ៉ាងតិច ៦ តួ)" minlength="6" required><button class="btn pri" id="go" style="width:100%">ចូលគណនី</button></form>
+<div class="msg" id="msg"></div></div></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="config.js"></script><script src="auth.js"></script>
+<script>
+let mode='in';const $=s=>document.querySelector(s),msg=(t,c)=>{$('#msg').className='msg '+(c||'');$('#msg').textContent=t};
+document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{mode=b.dataset.m;document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('on',x==b));$('#nm').style.display=mode==='up'?'':'none';$('#go').textContent=mode==='up'?'បង្កើតគណនី':'ចូលគណនី';$('#gt').textContent=mode==='up'?'ចុះឈ្មោះជាមួយ Google':'បន្តជាមួយ Google';$('#ht').textContent=mode==='up'?'ចុះឈ្មោះជាមួយ GitHub':'បន្តជាមួយ GitHub';msg('')});
+function go(p){location.replace(p.role==='admin'?'admin.html':'customer.html')}
+(async()=>{if(!sb){msg('សូមបំពេញ config.js (Supabase URL និង anon key) ជាមុនសិន។','err');return}const p=await getProfile();if(p)go(p)})();
+const oauth=prov=>async()=>{if(!sb)return msg('មិនទាន់កំណត់ config.js','err');const {error}=await sb.auth.signInWithOAuth({provider:prov,options:{redirectTo:here()+'login.html'}});if(error)msg(error.message,'err')};
+$('#g').onclick=oauth('google');$('#h').onclick=oauth('github');
+$('#f').onsubmit=async e=>{e.preventDefault();if(!sb)return msg('មិនទាន់កំណត់ config.js','err');msg('កំពុងដំណើរការ…');
+ if(mode==='up'){const {data,error}=await sb.auth.signUp({email:$('#em').value,password:$('#pw').value,options:{data:{full_name:$('#nm').value},emailRedirectTo:here()+'login.html'}});if(error)return msg(error.message,'err');
+  if(data.session){const p=await getProfile();return p&&go(p)}msg('បានបង្កើតគណនី! សូមពិនិត្យអ៊ីមែលរបស់អ្នក ដើម្បីបញ្ជាក់។','okc')}
+ else{const {error}=await sb.auth.signInWithPassword({email:$('#em').value,password:$('#pw').value});if(error)return msg(error.message,'err');const p=await getProfile();p&&go(p)}};
+</script></body></html>

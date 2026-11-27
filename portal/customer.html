@@ -1,0 +1,22 @@
+<!DOCTYPE html><html lang="km"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>My invitations · សំបុត្ររបស់ខ្ញុំ</title>
+<link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="common.css"></head><body>
+<div class="wrap"><header><h1>សំបុត្ររបស់ខ្ញុំ</h1><div id="who"></div></header>
+<div class="grid kpis" id="k"></div>
+<div class="card" style="margin-bottom:12px"><h2>បង្កើតតំណសំបុត្រថ្មី</h2><div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(180px,1fr))"><input id="t" placeholder="ឈ្មោះសំបុត្រ"><input id="s" placeholder="slug (a-z, 0-9, -)"><select id="tp"><option>Wedding Gold</option><option>Pink Lotus</option><option>Royal Green</option><option>Engagement Classic</option></select><button class="btn pri" id="add">បង្កើត</button></div><div class="msg" id="msg"></div></div>
+<div class="card"><h2>តំណរបស់ខ្ញុំ</h2><div class="scroll"><table id="tb"></table></div></div></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="config.js"></script><script src="auth.js"></script>
+<script>
+const $=s=>document.querySelector(s);let P;
+async function load(){
+ const {data:inv}=await sb.from('invitations').select('*').eq('owner',P.id).order('created_at',{ascending:false});
+ const {data:vw}=await sb.from('views').select('invitation_id');const c={};(vw||[]).forEach(v=>c[v.invitation_id]=(c[v.invitation_id]||0)+1);
+ $('#k').innerHTML=[['សំបុត្រ',(inv||[]).length],['ចូលមើលសរុប',(vw||[]).length],['គម្រោង',P.plan.toUpperCase()]].map(a=>`<div class="card k"><small>${a[0]}</small><b>${typeof a[1]==='number'?kh(a[1]):a[1]}</b></div>`).join('');
+ $('#tb').innerHTML='<tr><th>ឈ្មោះ</th><th>Slug</th><th>Template</th><th>ចូលមើល</th><th>ស្ថានភាព</th><th></th></tr>'+(inv||[]).map(i=>`<tr><td>${esc(i.title)}</td><td>${esc(i.slug)}</td><td>${esc(i.template)}</td><td>${kh(c[i.id]||0)}</td><td><span class="pill ${i.active?'':'off'}">${i.active?'សកម្ម':'បិទ'}</span></td><td><button class="btn" data-t="${i.id}" data-a="${i.active}">${i.active?'បិទ':'បើក'}</button> <button class="btn" data-d="${i.id}">លុប</button></td></tr>`).join('');
+ document.querySelectorAll('[data-t]').forEach(b=>b.onclick=async()=>{await sb.from('invitations').update({active:b.dataset.a!=='true'}).eq('id',b.dataset.t);load()});
+ document.querySelectorAll('[data-d]').forEach(b=>b.onclick=async()=>{if(b.dataset.c!=='1'){b.dataset.c='1';b.textContent='ចុចម្តងទៀតដើម្បីលុប';return}await sb.from('invitations').delete().eq('id',b.dataset.d);load()});
+}
+$('#add').onclick=async()=>{const slug=$('#s').value.trim().toLowerCase();if(!$('#t').value.trim()||!/^[a-z0-9-]{3,40}$/.test(slug)){$('#msg').className='msg err';$('#msg').textContent='ត្រូវការឈ្មោះ និង slug (៣-៤០ តួ a-z 0-9 -)';return}
+ const {error}=await sb.from('invitations').insert({owner:P.id,title:$('#t').value.trim(),slug,template:$('#tp').value});$('#msg').className='msg '+(error?'err':'okc');$('#msg').textContent=error?(error.code==='23505'?'slug នេះមានគេប្រើហើយ':error.message):'បានបង្កើត!';if(!error){$('#t').value=$('#s').value='';load()}};
+(async()=>{P=await requireRole('customer');if(!P)return;$('#who').innerHTML=whoHtml(P);load()})();
+</script></body></html>

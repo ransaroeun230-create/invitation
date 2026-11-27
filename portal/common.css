@@ -1,0 +1,19 @@
+:root{--bg:#0d1f16;--card:#13291d;--card2:#0f2418;--line:#2a4a38;--gold:#e8c45a;--gold2:#b88a1e;--tx:#f3efe0;--mut:#9db5a5;--ok:#6fd49a;--bad:#ff8a7a}
+*{box-sizing:border-box;margin:0}
+body{font-family:'Kantumruy Pro',system-ui,sans-serif;background:radial-gradient(1200px 600px at 50% -10%,#1d4a31,var(--bg));color:var(--tx);min-height:100vh}
+.wrap{max-width:1100px;margin:0 auto;padding:16px 16px 60px}
+h1{font-size:20px;background:linear-gradient(90deg,var(--gold2),#fff1a8,var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent}
+h2{font-size:15px;margin-bottom:10px;color:var(--gold)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px}
+.grid{display:grid;gap:12px}.kpis{grid-template-columns:repeat(auto-fit,minmax(150px,1fr));margin-bottom:12px}
+.k small{color:var(--mut);font-size:12px}.k b{display:block;font-size:26px;margin-top:2px;color:#fff1a8}
+table{width:100%;border-collapse:collapse;font-size:13px}th{text-align:left;color:var(--mut);font-weight:500;padding:6px 8px;border-bottom:1px solid var(--line)}td{padding:8px;border-bottom:1px solid #ffffff10}
+.scroll{overflow-x:auto}
+input,select{font:inherit;font-size:14px;background:var(--card2);color:var(--tx);border:1px solid var(--line);border-radius:10px;padding:9px 11px;width:100%}
+.btn{font:inherit;font-size:14px;cursor:pointer;border:1px solid var(--gold);background:none;color:var(--gold);border-radius:22px;padding:7px 16px}
+.btn:hover{background:var(--gold);color:#2a1d05}.btn.pri{background:linear-gradient(90deg,var(--gold2),var(--gold));color:#2a1d05;font-weight:600;border:0}
+.pill{display:inline-block;padding:2px 9px;border-radius:20px;font-size:11px;border:1px solid var(--gold);color:var(--gold)}.pill.pro{background:var(--gold);color:#2a1d05;font-weight:600}.pill.off{border-color:var(--line);color:var(--mut)}
+header{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin:6px 0 14px}
+.who{display:flex;gap:8px;align-items:center;font-size:13px;color:var(--mut)}.who img{width:30px;height:30px;border-radius:50%;border:1.5px solid var(--gold)}
+.msg{font-size:13px;margin-top:10px;min-height:18px}.err{color:var(--bad)}.okc{color:var(--ok)}
+.row{display:flex;gap:8px;align-items:center;justify-content:space-between;margin:8px 0}
